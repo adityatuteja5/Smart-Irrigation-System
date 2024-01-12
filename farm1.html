@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css" />
+
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <title>Crop Sensor Thresholds</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .crop-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+        }
+        .crop {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+        }
+        .crop img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .sensor-select, .farm-select {
+            margin-bottom: 5px;
+        }
+        .save-button {
+            margin-top: 5px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .save-button:hover {
+            background-color: #45a049;
+        }
+        .unit-label {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="logo-details">
+          <!-- <img src="images/logo.png" alt="logo" id="logo"> -->
+          <div class="logo_name">Dashboard</div>
+          <i class="bx bx-menu" id="btn"></i>
+        </div>
+  
+        <ul class="nav-list">
+  
+  
+          <li>
+            <a href="dashboard.html">
+              <i class="bx bx-grid-alt"></i>
+              <span class="links_name">Dashboard</span>
+            </a>
+            <span class="tooltip">Dashboard</span>
+          </li>
+  
+          <li>
+            <a href="analytics.html">
+              <i class="bx bx-pie-chart-alt-2"></i>
+              <span class="links_name">Analytics</span>
+            </a>
+            <span class="tooltip">Analytics</span>
+          </li>
+  
+          <li>
+            <a href="logs.html">
+              <i class="fa-solid fa-database" style="color: #ffffff;"></i>
+              <span class="links_name">Logs</span>
+            </a>
+            <span class="tooltip">Logs</span>
+          </li>
+  
+          <li>
+            <a href="farms.html">
+              <i class="fa-solid fa-seedling" style="color: #f4f4f4;"></i>   
+              <span class="links_name">Farms</span>
+            </a>
+            <span class="tooltip">Farms</span>
+          </li>
+  
+          <li>
+            <a href="setthreshold.html">
+              <i class="bx bx-cog"></i>
+              <span class="links_name">Threshold</span>
+            </a>
+            <span class="tooltip">Threshold</span>
+          </li>
+  
+          <li class="profile">
+            <div class="profile-details">
+              <img src="images/profile.png" alt="profileImg" />
+              <div class="name_job">
+                <div class="name">Aditya </div>
+                <!-- <div class="job">Web Devloper</div> -->
+              </div>
+            </div>
+  
+            <i class="bx bx-log-out" id="log_out"></i>
+          </li>
+  
+        </ul>
+      </div>
+
+      <section class="home-section">
+    <h1>Crop Sensor Thresholds</h1>
+    <div class="crop-container">
+        <!-- Crop 1 - Bajra -->
+        <div class="crop">
+            <img src="Bajra.jpg" alt="Bajra">
+            <h3>Bajra</h3>
+            <!-- ... Existing input elements for Bajra ... -->
+            <div>
+                <strong>Moisture Value:</strong> <span id="moisture_value_Bajra">-</span>
+            </div>
+            <div>
+                <strong>Temperature Value:</strong> <span id="temperature_value_Bajra">-</span>
+            </div>
+            <div>
+                <strong>Humidity Value:</strong> <span id="humidity_value_Bajra">-</span>
+            </div>
+        </div>
+
+        <!-- Crop 2 - Barley -->
+        <div class="crop">
+            <img src="Barley.jpg" alt="Barley">
+            <h3>Barley</h3>
+            <!-- ... Existing input elements for Barley ... -->
+            <div>
+                <strong>Moisture Value:</strong> <span id="moisture_value_Barley">-</span>
+            </div>
+            <div>
+                <strong>Temperature Value:</strong> <span id="temperature_value_Barley">-</span>
+            </div>
+            <div>
+                <strong>Humidity Value:</strong> <span id="humidity_value_Barley">-</span>
+            </div>
+        </div>
+
+        <!-- Crop 3 - Gram -->
+        <div class="crop">
+            <img src="Gram.jpg" alt="Gram">
+            <h3>Gram</h3>
+            <!-- ... Existing input elements for Gram ... -->
+            <div>
+                <strong>Moisture Value:</strong> <span id="moisture_value_Gram">-</span>
+            </div>
+            <div>
+                <strong>Temperature Value:</strong> <span id="temperature_value_Gram">-</span>
+            </div>
+            <div>
+                <strong>Humidity Value:</strong> <span id="humidity_value_Gram">-</span>
+            </div>
+        </div>
+
+        <!-- Crop 4 - Jowar -->
+        <div class="crop">
+            <img src="Jowar.jpg" alt="Jowar">
+            <h3>Jowar</h3>
+            <div>
+                <strong>Moisture Value:</strong> <span id="moisture_value_Jowar">-</span>
+            </div>
+            <div>
+                <strong>Temperature Value:</strong> <span id="temperature_value_Jowar">-</span>
+            </div>
+            <div>
+                <strong>Humidity Value:</strong> <span id="humidity_value_Jowar">-</span>
+            </div>
+        </div>
+
+        <!-- Crop 5 - Maize -->
+        <div class="crop">
+            <img src="Maize.jpg" alt="Maize">
+            <h3>Maize</h3>
+            <!-- ... Existing elements for Maize ... -->
+            <div>
+                <strong>Moisture Value:</strong> <span id="moisture_value_Maize">-</span>
+            </div>
+            <div>
+                <strong>Temperature Value:</strong> <span id="temperature_value_Maize">-</span>
+            </div>
+            <div>
+                <strong>Humidity Value:</strong> <span id="humidity_value_Maize">-</span>
+            </div>
+        </div>
+
+        <!-- Crop 6 - Paddy -->
+        <div class="crop">
+            <img src="Paddy.jpg" alt="Paddy">
+            <h3>Paddy</h3>
+            <!-- ... Existing elements for Paddy ... -->
+            <div>
+                <strong>Moisture Value:</strong> <span id="moisture_value_Paddy">-</span>
+            </div>
+            <div>
+                <strong>Temperature Value:</strong> <span id="temperature_value_Paddy">-</span>
+            </div>
+            <div>
+                <strong>Humidity Value:</strong> <span id="humidity_value_Paddy">-</span>
+            </div>
+        </div>
+
+        <!-- Crop 7 - Peas -->
+        <div class="crop">
+            <img src="Peas.jpg" alt="Peas">
+            <h3>Peas</h3>
+            <!-- ... Existing elements for Peas ... -->
+            <div>
+                <strong>Moisture Value:</strong> <span id="moisture_value_Peas">-</span>
+            </div>
+            <div>
+                <strong>Temperature Value:</strong> <span id="temperature_value_Peas">-</span>
+            </div>
+            <div>
+                <strong>Humidity Value:</strong> <span id="humidity_value_Peas">-</span>
+            </div>
+        </div>
+
+        <!-- Crop 8 - Rice -->
+        <div class="crop">
+            <img src="Rice.jpg" alt="Rice">
+            <h3>Rice</h3>
+            <!-- ... Existing elements for Rice ... -->
+            <div>
+                <strong>Moisture Value:</strong> <span id="moisture_value_Rice">-</span>
+            </div>
+            <div>
+                <strong>Temperature Value:</strong> <span id="temperature_value_Rice">-</span>
+            </div>
+            <div>
+                <strong>Humidity Value:</strong> <span id="humidity_value_Rice">-</span>
+            </div>
+        </div>
+
+        <!-- Crop 9 - Wheat -->
+        <div class="crop">
+            <img src="Wheat.jpg" alt="Wheat">
+            <h3>Wheat</h3>
+            <!-- ... Existing elements for Wheat ... -->
+            <div>
+                <strong>Moisture Value:</strong> <span id="moisture_value_Wheat">-</span>
+            </div>
+            <div>
+                <strong>Temperature Value:</strong> <span id="temperature_value_Wheat">-</span>
+            </div>
+            <div>
+                <strong>Humidity Value:</strong> <span id="humidity_value_Wheat">-</span>
+            </div>
+        </div>
+    </div>
+    </section>
+
+    <script>
+        function updateUnitLabel(cropName) {
+            const sensorSelect = document.getElementById(`sensor_select_${cropName}`);
+            const unitLabel = document.getElementById(`unit_label_${cropName}`);
+
+            // Update unit label based on the selected sensor
+            if (sensorSelect.value === "moisture") {
+                unitLabel.textContent = "Unit: %";
+            } else if (sensorSelect.value === "temperature") {
+                unitLabel.textContent = "Unit: Celsius";
+            } else if (sensorSelect.value === "humidity") {
+                unitLabel.textContent = "Unit: %";
+            }
+        }
+
+        function saveThresholds(cropName) {
+            const farmSelect = document.getElementById(`farm_select_${cropName}`);
+            const sensorSelect = document.getElementById(`sensor_select_${cropName}`);
+            const thresholdInput = document.getElementById(`threshold_input_${cropName}`);
+            const selectedFarm = farmSelect.value;
+            const selectedSensor = sensorSelect.value;
+            const thresholdValue = thresholdInput.value;
+
+            // Save data to localStorage with unique keys for each sensor in each crop on each farm
+            localStorage.setItem(`${selectedFarm}_${cropName}_${selectedSensor}`, thresholdValue);
+
+            // Show an alert box when the data is saved
+            alert('Threshold values are saved!');
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+        // Bajra
+        const moistureValueBajra = localStorage.getItem("farm1_Bajra_moisture");
+        const temperatureValueBajra = localStorage.getItem("farm1_Bajra_temperature");
+        const humidityValueBajra = localStorage.getItem("farm1_Bajra_humidity");
+
+        document.getElementById("moisture_value_Bajra").textContent = moistureValueBajra || "-";
+        document.getElementById("temperature_value_Bajra").textContent = temperatureValueBajra || "-";
+        document.getElementById("humidity_value_Bajra").textContent = humidityValueBajra || "-";
+
+        // Barley
+        const moistureValueBarley = localStorage.getItem("farm1_Barley_moisture");
+        const temperatureValueBarley = localStorage.getItem("farm1_Barley_temperature");
+        const humidityValueBarley = localStorage.getItem("farm1_Barley_humidity");
+
+        document.getElementById("moisture_value_Barley").textContent = moistureValueBarley || "-";
+        document.getElementById("temperature_value_Barley").textContent = temperatureValueBarley || "-";
+        document.getElementById("humidity_value_Barley").textContent = humidityValueBarley || "-";
+
+        // Gram
+        const moistureValueGram = localStorage.getItem("farm1_Gram_moisture");
+        const temperatureValueGram = localStorage.getItem("farm1_Gram_temperature");
+        const humidityValueGram = localStorage.getItem("farm1_Gram_humidity");
+
+        document.getElementById("moisture_value_Gram").textContent = moistureValueGram || "-";
+        document.getElementById("temperature_value_Gram").textContent = temperatureValueGram || "-";
+        document.getElementById("humidity_value_Gram").textContent = humidityValueGram || "-";
+
+        // Jowar
+        const moistureValueJowar = localStorage.getItem("farm1_Jowar_moisture");
+        const temperatureValueJowar = localStorage.getItem("farm1_Jowar_temperature");
+        const humidityValueJowar = localStorage.getItem("farm1_Jowar_humidity");
+
+        document.getElementById("moisture_value_Jowar").textContent = moistureValueJowar || "-";
+        document.getElementById("temperature_value_Jowar").textContent = temperatureValueJowar || "-";
+        document.getElementById("humidity_value_Jowar").textContent = humidityValueJowar || "-";
+
+        // Maize
+        const moistureValueMaize = localStorage.getItem("farm1_Maize_moisture");
+        const temperatureValueMaize = localStorage.getItem("farm1_Maize_temperature");
+        const humidityValueMaize = localStorage.getItem("farm1_Maize_humidity");
+
+        document.getElementById("moisture_value_Maize").textContent = moistureValueMaize || "-";
+        document.getElementById("temperature_value_Maize").textContent = temperatureValueMaize || "-";
+        document.getElementById("humidity_value_Maize").textContent = humidityValueMaize || "-";
+
+        // Paddy
+        const moistureValuePaddy = localStorage.getItem("farm1_Paddy_moisture");
+        const temperatureValuePaddy = localStorage.getItem("farm1_Paddy_temperature");
+        const humidityValuePaddy = localStorage.getItem("farm1_Paddy_humidity");
+
+        document.getElementById("moisture_value_Paddy").textContent = moistureValuePaddy || "-";
+        document.getElementById("temperature_value_Paddy").textContent = temperatureValuePaddy || "-";
+        document.getElementById("humidity_value_Paddy").textContent = humidityValuePaddy || "-";
+
+        // Peas
+        const moistureValuePeas = localStorage.getItem("farm1_Peas_moisture");
+        const temperatureValuePeas = localStorage.getItem("farm1_Peas_temperature");
+        const humidityValuePeas = localStorage.getItem("farm1_Peas_humidity");
+
+        document.getElementById("moisture_value_Peas").textContent = moistureValuePeas || "-";
+        document.getElementById("temperature_value_Peas").textContent = temperatureValuePeas || "-";
+        document.getElementById("humidity_value_Peas").textContent = humidityValuePeas || "-";
+
+        // Rice
+        const moistureValueRice = localStorage.getItem("farm1_Rice_moisture");
+        const temperatureValueRice = localStorage.getItem("farm1_Rice_temperature");
+        const humidityValueRice = localStorage.getItem("farm1_Rice_humidity");
+
+        document.getElementById("moisture_value_Rice").textContent = moistureValueRice || "-";
+        document.getElementById("temperature_value_Rice").textContent = temperatureValueRice || "-";
+        document.getElementById("humidity_value_Rice").textContent = humidityValueRice || "-";
+
+        // Wheat
+        const moistureValueWheat = localStorage.getItem("farm1_Wheat_moisture");
+        const temperatureValueWheat = localStorage.getItem("farm1_Wheat_temperature");
+        const humidityValueWheat = localStorage.getItem("farm1_Wheat_humidity");
+
+        document.getElementById("moisture_value_Wheat").textContent = moistureValueWheat || "-";
+        document.getElementById("temperature_value_Wheat").textContent = temperatureValueWheat || "-";
+        document.getElementById("humidity_value_Wheat").textContent = humidityValueWheat || "-";
+    });
+</script>
+
+<script src="dashboard.js"></script>
+<script src="https://kit.fontawesome.com/d4b5e96e6e.js" crossorigin="anonymous"></script>
+<script src="dashboard.js"></script>
+
+
+</body>
+</html>

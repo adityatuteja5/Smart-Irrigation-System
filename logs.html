@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="logs.css" />
+    <!-- Boxicons CDN Link -->
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+
+    <style>
+      tr {
+          background-color: lightGrey;
+      }
+      
+      tr:nth-child(2n) {
+          background-color: grey;
+      }
+
+      #filter-container {
+          padding: 100px;
+      }
+
+      #table {
+          padding: 100px;
+
+      }
+
+      table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 20px;
+          border: 1px solid #ccc;
+      }
+
+      th, td {
+          padding: 10px;
+          text-align: left;
+          font-size: 14px;
+          color: #333;
+      }
+
+      th {
+          background-color: #f2f2f2;
+      }
+
+      tr:nth-child(even) {
+          background-color: #f9f9f9;
+      }
+
+      tr:hover {
+          background-color: #e6e6e6;
+      }
+
+
+  </style>
+  </head>
+
+  <body>
+
+    <div class="sidebar">
+      <div class="logo-details">
+        <!-- <img src="images/logo.png" alt="logo" id="logo"> -->
+        <div class="logo_name">Dashboard</div>
+        <i class="bx bx-menu" id="btn"></i>
+      </div>
+
+      <ul class="nav-list">
+
+        <li>
+          <a href="dashboard.html">
+            <i class="bx bx-grid-alt"></i>
+            <span class="links_name">Dashboard</span>
+          </a>
+          <span class="tooltip">Dashboard</span>
+        </li>
+
+        <li>
+          <a href="analytics.html">
+            <i class="bx bx-pie-chart-alt-2"></i>
+            <span class="links_name">Analytics</span>
+          </a>
+          <span class="tooltip">Analytics</span>
+        </li>
+
+        <li>
+          <a href="logs.html">
+            <i class="fa-solid fa-database" style="color: #ffffff;"></i>
+            <span class="links_name">Logs</span>
+          </a>
+          <span class="tooltip">Logs</span>
+        </li>
+
+        <li>
+          <a href="farms.html">
+            <i class="fa-solid fa-seedling" style="color: #f4f4f4;"></i>   
+            <span class="links_name">Farms</span>
+          </a>
+          <span class="tooltip">Farms</span>
+        </li>
+
+        <li>
+          <a href="setthreshold.html">
+            <i class="fa-solid fa-satellite-dish" style="color: #ffffff;"></i> 
+            <span class="links_name">Threshold</span>
+          </a>
+          <span class="tooltip">Threshold</span>
+        </li>
+
+        <li class="profile">
+          <div class="profile-details">
+            <img src="images/profile.png" alt="profileImg" />
+            <div class="name_job">
+              <div class="name">Aditya </div>
+              <!-- <div class="job">Web Devloper</div> -->
+            </div>
+          </div>
+
+          <i class="bx bx-log-out" id="log_out"></i>
+        </li>
+
+      </ul>
+    </div>
+
+
+    <section class="home-section">
+      <form action="#">
+        <div class="row">
+            <div class="input-group">
+                <label for="start-date-time">Start Date and Time:</label>
+                <input type="datetime-local" id="start-date-time" name="start-date-time" />
+                
+                <label for="end-date-time">End Date and Time:</label>
+                <input type="datetime-local" id="end-date-time" name="end-date-time" />
+            </div>
+            
+            <div class="input-group">
+                <button type="submit" id="show-range">Show Range</button>
+            </div>
+        </div>
+    </form>
+
+    <table id="table"></table>
+
+  </section>
+
+
+
+    <script>
+        let records;
+        fetch('https://script.google.com/macros/s/AKfycbzCklZFzCabSrOMKJjEUs8Yv5lL9wGodMLhjKah7dx-bSAeB3yrjS2lMd7lTEpi3oz2/exec')
+            .then(res => res.json())
+            .then(data => {
+                records = data.content;
+                displayRecords(records);
+            });
+
+        function displayRecords(records) {
+            let tr = records.reduce((prev, cur) => {
+                let td = cur.map(e => {
+                    if (typeof e === 'string' && e.includes('T') && e.includes('Z')) {
+                        let date = new Date(e);
+                        let strTime = date.toISOString();
+                        return `<td>${strTime}</td>`;
+                    } else {
+                        return `<td>${e}</td>`
+                    }
+                });
+                return prev + `<tr>${td.join("")}</tr>`;
+            }, "\r");
+            document.querySelector("#table").innerHTML = tr;
+        }
+
+        function filterRecords() {
+            let startInput = document.querySelector("#startDatetime").value;
+            let endInput = document.querySelector("#endDatetime").value;
+            let startDate = new Date(startInput);
+            let endDate = new Date(endInput);
+            
+            let filteredRecords = records.filter(record => {
+                let recordDate = new Date(record[0]); // assuming the date is in the first column
+                return recordDate >= startDate && recordDate <= endDate;
+            });
+            
+            displayRecords(filteredRecords);
+        }
+    </script>   
+      
+
+
+    <script src="https://kit.fontawesome.com/d4b5e96e6e.js" crossorigin="anonymous"></script>
+    <script src="dashboard.js"></script>
+  </body>
+</html>

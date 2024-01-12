@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css" />
+
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+      tr {
+          background-color: lightGrey;
+      }
+      
+      tr:nth-child(2n) {
+          background-color: grey;
+      }
+
+      #filter-container {
+          padding: 100px;
+      }
+
+      #table {
+          padding: 100px;
+
+      }
+
+      table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 20px;
+          border: 1px solid #ccc;
+      }
+
+      th, td {
+          padding: 10px;
+          text-align: left;
+          font-size: 14px;
+          color: #333;
+      }
+
+      th {
+          background-color: #f2f2f2;
+      }
+
+      tr:nth-child(even) {
+          background-color: #f9f9f9;
+      }
+
+      tr:hover {
+          background-color: #e6e6e6;
+      }
+
+
+  </style>
+  </head>
+
+  <body>
+
+    <div class="sidebar">
+      <div class="logo-details">
+        <!-- <img src="images/logo.png" alt="logo" id="logo"> -->
+        <div class="logo_name">Dashboard</div>
+        <i class="bx bx-menu" id="btn"></i>
+      </div>
+
+      <ul class="nav-list">
+
+
+        <li>
+          <a href="#">
+            <i class="bx bx-grid-alt"></i>
+            <span class="links_name">Dashboard</span>
+          </a>
+          <span class="tooltip">Dashboard</span>
+        </li>
+
+        <li>
+          <a href="analytics.html">
+            <i class="bx bx-pie-chart-alt-2"></i>
+            <span class="links_name">Analytics</span>
+          </a>
+          <span class="tooltip">Analytics</span>
+        </li>
+
+        <li>
+          <a href="logs.html">
+            <i class="fa-solid fa-database" style="color: #ffffff;"></i>
+            <span class="links_name">Logs</span>
+          </a>
+          <span class="tooltip">Logs</span>
+        </li>
+
+        <li>
+          <a href="farms.html">
+            <i class="fa-solid fa-seedling" style="color: #f4f4f4;"></i>   
+            <span class="links_name">Farms</span>
+          </a>
+          <span class="tooltip">Farms</span>
+        </li>
+
+        <li>
+          <a href="setthreshold.html">
+            <i class="bx bx-cog"></i>
+            <span class="links_name">Threshold</span>
+          </a>
+          <span class="tooltip">Threshold</span>
+        </li>
+
+        <li class="profile">
+          <div class="profile-details">
+            <img src="images/profile.png" alt="profileImg" />
+            <div class="name_job">
+              <div class="name">Aditya </div>
+              <!-- <div class="job">Web Devloper</div> -->
+            </div>
+          </div>
+
+          <i class="bx bx-log-out" id="log_out"></i>
+        </li>
+
+      </ul>
+    </div>
+
+
+    <section class="home-section">
+      <div class="text">Smart Irrigation System</div>
+
+      <form action="#">
+        <div class="row">
+            <div class="input-group">
+                <label for="selectfarm">Select Farm:</label>
+                <select name="farm" id="selectfarm">
+                    <option value="select">Farm 1</option>
+                    <option value="farm1">Farm 2</option>
+                    <option value="farm2">Farm 3</option>
+                </select>
+            </div>
+            
+            <div class="input-group">
+                <label for="selectcrop">Select Crop:</label>
+                <select name="crop" id="selectcrop">
+                    <option value="select">Bajra</option>
+                    <option value="crop1">Wheat</option>
+                    <option value="crop2">Rice</option>
+                </select>
+            </div>
+            
+            <div class="input-group">
+                <label for="date">Select Date:</label>
+                <input type="date" id="date" name="date" />
+            </div>
+            
+            <div class="input-group">
+                <button type="submit" id="show">Show</button>
+            </div>
+        </div>
+    </form>
+
+
+
+      <div class="containerall">
+
+        <div class="image-container">
+          <img src="images/bajra.jpg" alt="Bajra" id="bajra-image">
+          <div> <span id="bajra"> <h2>Bajra</h2> </span></div>
+
+      </div>
+
+
+      <div>
+          <div class="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="--value: 60">
+              <span id=""><h3><b>Water Level Indicator</b></h3></span>
+          </div>
+          <span class="low"><b>LOW</b></span>
+          <span class="high"><b>HIGH</b></span>
+      </div>
+
+      <div>
+          <center>
+              <input type="checkbox" name="">
+              <span id="powertxt"> <h4>Water Pump<br> Power On/ Off Switch</h4></span>
+          </center>
+      </div>
+
+      <div>
+      <canvas id="myChart" style="width:100%; max-width:500px; height: 200px; margin-top: 0px; margin-left: 650px;"></canvas>
+      </div>
+
+
+
+
+
+
+      <!-- <div class="container1">
+        <div class="circular-progress1">
+            <span class="progress-value">0%</span>
+        </div>
+
+        <span class="text">Moisture Percentage</span>
+    </div>
+    
+
+    <div class="container2">
+        <div class="circular-progress2">
+            <span class="progress-value2">0%</span>
+        </div>
+
+        <span class="text2">Temprature</span>
+    </div>
+    
+
+    <div class="container3">
+        <div class="circular-progress3">
+            <span class="progress-value3">0%</span>
+        </div>
+
+        <span class="text3">Humidity</span>
+    </div> -->
+    <br>
+
+    <div>
+      <br><br>
+      <table id="table"></table>
+      <br>
+    </div>
+
+    
+
+
+    </section>
+
+    
+
+    <script>
+      let records;
+      fetch('https://script.google.com/macros/s/AKfycbzCklZFzCabSrOMKJjEUs8Yv5lL9wGodMLhjKah7dx-bSAeB3yrjS2lMd7lTEpi3oz2/exec')
+          .then(res => res.json())
+          .then(data => {
+              records = data.content;
+              displayRecords(records);
+          });
+
+      function displayRecords(records) {
+          let tr = records.reduce((prev, cur) => {
+              let td = cur.map(e => {
+                  if (typeof e === 'string' && e.includes('T') && e.includes('Z')) {
+                      let date = new Date(e);
+                      let strTime = date.toISOString();
+                      return `<td>${strTime}</td>`;
+                  } else {
+                      return `<td>${e}</td>`
+                  }
+              });
+              return prev + `<tr>${td.join("")}</tr>`;
+          }, "\r");
+          document.querySelector("#table").innerHTML = tr;
+      }
+
+      function filterRecords() {
+          let startInput = document.querySelector("#startDatetime").value;
+          let endInput = document.querySelector("#endDatetime").value;
+          let startDate = new Date(startInput);
+          let endDate = new Date(endInput);
+          
+          let filteredRecords = records.filter(record => {
+              let recordDate = new Date(record[0]); // assuming the date is in the first column
+              return recordDate >= startDate && recordDate <= endDate;
+          });
+          
+          displayRecords(filteredRecords);
+      }
+  </script>   
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+<script>
+const Sensors = ['03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00'];
+
+new Chart("myChart", {
+  type: "line",
+  data: {
+    labels: Sensors,
+    datasets: [{       
+      data: [40,60,45,30,40,25,9],
+      borderColor: "Blue",
+      fill: false
+    }, { 
+      data: [35,55,40,25,55,35,15],
+      borderColor: "red",
+      fill: false
+    }, { 
+      data: [15,95,70,45,85,60,35],
+      borderColor: "green",
+      fill: false
+    }]
+  },
+  options: {
+    legend: {display: false}
+  }
+});
+</script>
+
+    <script src="https://kit.fontawesome.com/d4b5e96e6e.js" crossorigin="anonymous"></script>
+    <script src="dashboard.js"></script>
+  </body>
+</html>

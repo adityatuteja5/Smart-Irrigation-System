@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="analytics.css" />
+    <!-- Boxicons CDN Link -->
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+    
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <title>Crop Sensor Thresholds</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .crop-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+        }
+        .crop {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+        }
+        .crop img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .sensor-select, .farm-select {
+            margin-bottom: 5px;
+        }
+        .save-button {
+            margin-top: 5px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .save-button:hover {
+            background-color: #45a049;
+        }
+        .unit-label {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        
+    </style>
+</head>
+<body>
+
+
+    <div class="sidebar">
+        <div class="logo-details">
+          <!-- <img src="images/logo.png" alt="logo" id="logo"> -->
+          <div class="logo_name">Dashboard</div>
+          <i class="bx bx-menu" id="btn"></i>
+        </div>
+  
+        <ul class="nav-list">
+  
+  
+          <li>
+            <a href="dashboard.html">
+              <i class="bx bx-grid-alt"></i>
+              <span class="links_name">Dashboard</span>
+            </a>
+            <span class="tooltip">Dashboard</span>
+          </li>
+  
+          <li>
+            <a href="analytics.html">
+              <i class="bx bx-pie-chart-alt-2"></i>
+              <span class="links_name">Analytics</span>
+            </a>
+            <span class="tooltip">Analytics</span>
+          </li>
+  
+          <li>
+            <a href="logs.html">
+              <i class="fa-solid fa-database" style="color: #ffffff;"></i>
+              <span class="links_name">Logs</span>
+            </a>
+            <span class="tooltip">Logs</span>
+          </li>
+  
+          <li>
+            <a href="farms.html">
+              <i class="fa-solid fa-seedling" style="color: #f4f4f4;"></i>   
+              <span class="links_name">Farms</span>
+            </a>
+            <span class="tooltip">Farms</span>
+          </li>
+  
+          <li>
+            <a href="setthreshold.html">
+              <i class="bx bx-cog"></i>
+              <span class="links_name">Threshold</span>
+            </a>
+            <span class="tooltip">Threshold</span>
+          </li>
+  
+          <li class="profile">
+            <div class="profile-details">
+              <img src="images/profile.png" alt="profileImg" />
+              <div class="name_job">
+                <div class="name">Aditya </div>
+                <!-- <div class="job">Web Devloper</div> -->
+              </div>
+            </div>
+  
+            <i class="bx bx-log-out" id="log_out"></i>
+          </li>
+  
+        </ul>
+      </div>
+
+      <section class="home-section">
+
+
+    
+    <h1>Crop Sensor Thresholds</h1>
+
+    <div class="crop-container">
+        <!-- Crop 1 -->
+        <div class="crop">
+            <img src="Bajra.jpg" alt="Crop 1">
+            <h3>Bajra</h3>
+            <!-- Farm Selection Dropdown for Crop 1 -->
+            <label for="farm_select_Bajra">Select Farm:</label>
+            <select id="farm_select_Bajra" class="farm-select">
+                <option value="farm1">Farm 1</option>
+                <option value="farm2">Farm 2</option>
+                <option value="farm3">Farm 3</option>
+                <!-- Add more farm options as needed -->
+            </select>
+            <!-- Sensor threshold inputs for Crop 1 -->
+            <label for="sensor_select_Bajra">Select Sensor:</label>
+            <select id="sensor_select_Bajra" class="sensor-select" onchange="updateUnitLabel('Bajra')">
+                <option value="moisture">Moisture</option>
+                <option value="temperature">Temperature</option>
+                <option value="humidity">Humidity</option>
+            </select>
+            <br>
+            <label for="threshold_input_Bajra">Threshold Value:</label>
+            <input type="text" id="threshold_input_Bajra" placeholder="Enter threshold value">
+            <br>
+            <div id="unit_label_Bajra" class="unit-label">Unit: %</div>
+            <!-- Save Thresholds Button for Crop 1 -->
+            <button class="save-button" onclick="saveThresholds('Bajra')">Save Threshold</button>
+        </div>
+
+
+        <!-- Crop 2 - Barley -->
+        <div class="crop">
+            <img src="Barley.jpg" alt="Barley">
+            <h3>Barley</h3>
+            <!-- Farm Selection Dropdown for Barley -->
+            <label for="farm_select_Barley">Select Farm:</label>
+            <select id="farm_select_Barley" class="farm-select">
+                <option value="farm1">Farm 1</option>
+                <option value="farm2">Farm 2</option>
+                <option value="farm3">Farm 3</option>
+                <!-- Add more farm options as needed -->
+            </select>
+            <!-- Sensor threshold inputs for Barley -->
+            <label for="sensor_select_Barley">Select Sensor:</label>
+            <select id="sensor_select_Barley" class="sensor-select" onchange="updateUnitLabel('Barley')">
+                <option value="moisture">Moisture</option>
+                <option value="temperature">Temperature</option>
+                <option value="humidity">Humidity</option>
+            </select>
+            <br>
+            <label for="threshold_input_Barley">Threshold Value:</label>
+            <input type="text" id="threshold_input_Barley" placeholder="Enter threshold value">
+            <br>
+            <div id="unit_label_Barley" class="unit-label">Unit: %</div>
+            <!-- Save Thresholds Button for Barley -->
+            <button class="save-button" onclick="saveThresholds('Barley')">Save Threshold</button>
+        </div>
+
+        <!-- Crop 3 - Gram -->
+        <div class="crop">
+            <img src="Gram.jpg" alt="Gram">
+            <h3>Gram</h3>
+            <!-- Farm Selection Dropdown for Gram -->
+            <label for="farm_select_Gram">Select Farm:</label>
+            <select id="farm_select_Gram" class="farm-select">
+                <option value="farm1">Farm 1</option>
+                <option value="farm2">Farm 2</option>
+                <option value="farm3">Farm 3</option>
+                <!-- Add more farm options as needed -->
+            </select>
+            <!-- Sensor threshold inputs for Gram -->
+            <label for="sensor_select_Gram">Select Sensor:</label>
+            <select id="sensor_select_Gram" class="sensor-select" onchange="updateUnitLabel('Gram')">
+                <option value="moisture">Moisture</option>
+                <option value="temperature">Temperature</option>
+                <option value="humidity">Humidity</option>
+            </select>
+            <br>
+            <label for="threshold_input_Gram">Threshold Value:</label>
+            <input type="text" id="threshold_input_Gram" placeholder="Enter threshold value">
+            <br>
+            <div id="unit_label_Gram" class="unit-label">Unit: %</div>
+            <!-- Save Thresholds Button for Gram -->
+            <button class="save-button" onclick="saveThresholds('Gram')">Save Threshold</button>
+        </div>
+
+
+        <!-- Crop 4 - Jowar -->
+        <div class="crop">
+            <img src="Jowar.jpg" alt="Jowar">
+            <h3>Jowar</h3>
+            <!-- Farm Selection Dropdown for Jowar -->
+            <label for="farm_select_Jowar">Select Farm:</label>
+            <select id="farm_select_Jowar" class="farm-select">
+                <option value="farm1">Farm 1</option>
+                <option value="farm2">Farm 2</option>
+                <option value="farm3">Farm 3</option>
+                <!-- Add more farm options as needed -->
+            </select>
+            <!-- Sensor threshold inputs for Jowar -->
+            <label for="sensor_select_Jowar">Select Sensor:</label>
+            <select id="sensor_select_Jowar" class="sensor-select" onchange="updateUnitLabel('Jowar')">
+                <option value="moisture">Moisture</option>
+                <option value="temperature">Temperature</option>
+                <option value="humidity">Humidity</option>
+            </select>
+            <br>
+            <label for="threshold_input_Jowar">Threshold Value:</label>
+            <input type="text" id="threshold_input_Jowar" placeholder="Enter threshold value">
+            <br>
+            <div id="unit_label_Jowar" class="unit-label">Unit: %</div>
+            <!-- Save Thresholds Button for Jowar -->
+            <button class="save-button" onclick="saveThresholds('Jowar')">Save Threshold</button>
+        </div>
+
+        <!-- Crop 5 - Maize -->
+        <div class="crop">
+            <img src="Maize.jpg" alt="Maize">
+            <h3>Maize</h3>
+            <!-- Farm Selection Dropdown for Maize -->
+            <label for="farm_select_Maize">Select Farm:</label>
+            <select id="farm_select_Maize" class="farm-select">
+                <option value="farm1">Farm 1</option>
+                <option value="farm2">Farm 2</option>
+                <option value="farm3">Farm 3</option>
+                <!-- Add more farm options as needed -->
+            </select>
+            <!-- Sensor threshold inputs for Maize -->
+            <label for="sensor_select_Maize">Select Sensor:</label>
+            <select id="sensor_select_Maize" class="sensor-select" onchange="updateUnitLabel('Maize')">
+                <option value="moisture">Moisture</option>
+                <option value="temperature">Temperature</option>
+                <option value="humidity">Humidity</option>
+            </select>
+            <br>
+            <label for="threshold_input_Maize">Threshold Value:</label>
+            <input type="text" id="threshold_input_Maize" placeholder="Enter threshold value">
+            <br>
+            <div id="unit_label_Maize" class="unit-label">Unit: %</div>
+            <!-- Save Thresholds Button for Maize -->
+            <button class="save-button" onclick="saveThresholds('Maize')">Save Threshold</button>
+        </div>
+
+        <!-- Crop 6 - Paddy -->
+        <div class="crop">
+            <img src="Paddy.jpg" alt="Paddy">
+            <h3>Paddy</h3>
+            <!-- Farm Selection Dropdown for Paddy -->
+            <label for="farm_select_Paddy">Select Farm:</label>
+            <select id="farm_select_Paddy" class="farm-select">
+                <option value="farm1">Farm 1</option>
+                <option value="farm2">Farm 2</option>
+                <option value="farm3">Farm 3</option>
+                <!-- Add more farm options as needed -->
+            </select>
+            <!-- Sensor threshold inputs for Paddy -->
+            <label for="sensor_select_Paddy">Select Sensor:</label>
+            <select id="sensor_select_Paddy" class="sensor-select" onchange="updateUnitLabel('Paddy')">
+                <option value="moisture">Moisture</option>
+                <option value="temperature">Temperature</option>
+                <option value="humidity">Humidity</option>
+            </select>
+            <br>
+            <label for="threshold_input_Paddy">Threshold Value:</label>
+            <input type="text" id="threshold_input_Paddy" placeholder="Enter threshold value">
+            <br>
+            <div id="unit_label_Paddy" class="unit-label">Unit: %</div>
+            <!-- Save Thresholds Button for Paddy -->
+            <button class="save-button" onclick="saveThresholds('Paddy')">Save Threshold</button>
+        </div>
+
+        <!-- Crop 7 - Peas -->
+        <div class="crop">
+            <img src="Peas.jpg" alt="Peas">
+            <h3>Peas</h3>
+            <!-- Farm Selection Dropdown for Peas -->
+            <label for="farm_select_Peas">Select Farm:</label>
+            <select id="farm_select_Peas" class="farm-select">
+                <option value="farm1">Farm 1</option>
+                <option value="farm2">Farm 2</option>
+                <option value="farm3">Farm 3</option>
+                <!-- Add more farm options as needed -->
+            </select>
+            <!-- Sensor threshold inputs for Peas -->
+            <label for="sensor_select_Peas">Select Sensor:</label>
+            <select id="sensor_select_Peas" class="sensor-select" onchange="updateUnitLabel('Peas')">
+                <option value="moisture">Moisture</option>
+                <option value="temperature">Temperature</option>
+                <option value="humidity">Humidity</option>
+            </select>
+            <br>
+            <label for="threshold_input_Peas">Threshold Value:</label>
+            <input type="text" id="threshold_input_Peas" placeholder="Enter threshold value">
+            <br>
+            <div id="unit_label_Peas" class="unit-label">Unit: %</div>
+            <!-- Save Thresholds Button for Peas -->
+            <button class="save-button" onclick="saveThresholds('Peas')">Save Threshold</button>
+        </div>
+
+        <!-- Crop 8 - Rice -->
+        <div class="crop">
+            <img src="Rice.jpg" alt="Rice">
+            <h3>Rice</h3>
+            <!-- Farm Selection Dropdown for Rice -->
+            <label for="farm_select_Rice">Select Farm:</label>
+            <select id="farm_select_Rice" class="farm-select">
+                <option value="farm1">Farm 1</option>
+                <option value="farm2">Farm 2</option>
+                <option value="farm3">Farm 3</option>
+                <!-- Add more farm options as needed -->
+            </select>
+            <!-- Sensor threshold inputs for Rice -->
+            <label for="sensor_select_Rice">Select Sensor:</label>
+            <select id="sensor_select_Rice" class="sensor-select" onchange="updateUnitLabel('Rice')">
+                <option value="moisture">Moisture</option>
+                <option value="temperature">Temperature</option>
+                <option value="humidity">Humidity</option>
+            </select>
+            <br>
+            <label for="threshold_input_Rice">Threshold Value:</label>
+            <input type="text" id="threshold_input_Rice" placeholder="Enter threshold value">
+            <br>
+            <div id="unit_label_Rice" class="unit-label">Unit: %</div>
+            <!-- Save Thresholds Button for Rice -->
+            <button class="save-button" onclick="saveThresholds('Rice')">Save Threshold</button>
+        </div>
+
+        <!-- Crop 9 - Wheat -->
+        <div class="crop">
+            <img src="Wheat.jpg" alt="Wheat">
+            <h3>Wheat</h3>
+            <!-- Farm Selection Dropdown for Wheat -->
+            <label for="farm_select_Wheat">Select Farm:</label>
+            <select id="farm_select_Wheat" class="farm-select">
+                <option value="farm1">Farm 1</option>
+                <option value="farm2">Farm 2</option>
+                <option value="farm3">Farm 3</option>
+                <!-- Add more farm options as needed -->
+            </select>
+            <!-- Sensor threshold inputs for Wheat -->
+            <label for="sensor_select_Wheat">Select Sensor:</label>
+            <select id="sensor_select_Wheat" class="sensor-select" onchange="updateUnitLabel('Wheat')">
+                <option value="moisture">Moisture</option>
+                <option value="temperature">Temperature</option>
+                <option value="humidity">Humidity</option>
+            </select>
+            <br>
+            <label for="threshold_input_Wheat">Threshold Value:</label>
+            <input type="text" id="threshold_input_Wheat" placeholder="Enter threshold value">
+            <br>
+            <div id="unit_label_Wheat" class="unit-label">Unit: %</div>
+            <!-- Save Thresholds Button for Wheat -->
+            <button class="save-button" onclick="saveThresholds('Wheat')">Save Threshold</button>
+        </div>
+        <!-- Add more crops here... -->
+    </div>
+
+    </section>
+
+
+
+    <script>
+        function updateUnitLabel(cropName) {
+            const sensorSelect = document.getElementById(`sensor_select_${cropName}`);
+            const unitLabel = document.getElementById(`unit_label_${cropName}`);
+
+            // Update unit label based on the selected sensor
+            if (sensorSelect.value === "moisture") {
+                unitLabel.textContent = "Unit: %";
+            } else if (sensorSelect.value === "temperature") {
+                unitLabel.textContent = "Unit: Celsius";
+            } else if (sensorSelect.value === "humidity") {
+                unitLabel.textContent = "Unit: %";
+            }
+        }
+
+        function saveThresholds(cropName) {
+        const farmSelect = document.getElementById(`farm_select_${cropName}`);
+        const sensorSelect = document.getElementById(`sensor_select_${cropName}`);
+        const thresholdInput = document.getElementById(`threshold_input_${cropName}`);
+        const selectedFarm = farmSelect.value;
+        const selectedSensor = sensorSelect.value;
+        const thresholdValue = thresholdInput.value;
+
+        // Save data to localStorage with unique keys for each sensor in each crop on each farm
+        localStorage.setItem(`${selectedFarm}_${cropName}_${selectedSensor}`, thresholdValue);
+
+        // Show an alert box when the data is saved
+        alert('Threshold values are saved!');
+    }
+
+    </script>
+        <script src="dashboard.js"></script>
+        <script src="https://kit.fontawesome.com/d4b5e96e6e.js" crossorigin="anonymous"></script>
+        <script src="dashboard.js"></script>
+
+</body>
+</html>

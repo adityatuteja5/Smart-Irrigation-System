@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="analytics.css" />
+    <!-- Boxicons CDN Link -->
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+    
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+
+        /* Add custom CSS for styling if needed */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+        }
+        .chart-container {
+            border: 1px solid #ccc;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+        }
+        .chart-container h2 {
+            margin: 0; /* Remove margin for the heading */
+            padding: 0; /* Remove padding for the heading */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .crop-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+        }
+        .crop {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+        }
+        .crop img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .sensor-select, .farm-select {
+            margin-bottom: 5px;
+        }
+        .save-button {
+            margin-top: 5px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .save-button:hover {
+            background-color: #45a049;
+        }
+        .unit-label {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+
+
+    </style>
+
+
+
+
+
+  </head>
+
+  <body>
+
+    <div class="sidebar">
+      <div class="logo-details">
+        <!-- <img src="images/logo.png" alt="logo" id="logo"> -->
+        <div class="logo_name">Dashboard</div>
+        <i class="bx bx-menu" id="btn"></i>
+      </div>
+
+      <ul class="nav-list">
+
+
+        <li>
+          <a href="dashboard.html">
+            <i class="bx bx-grid-alt"></i>
+            <span class="links_name">Dashboard</span>
+          </a>
+          <span class="tooltip">Dashboard</span>
+        </li>
+
+        <li>
+          <a href="analytics.html">
+            <i class="bx bx-pie-chart-alt-2"></i>
+            <span class="links_name">Analytics</span>
+          </a>
+          <span class="tooltip">Analytics</span>
+        </li>
+
+        <li>
+          <a href="logs.html">
+            <i class="fa-solid fa-database" style="color: #ffffff;"></i>
+            <span class="links_name">Logs</span>
+          </a>
+          <span class="tooltip">Logs</span>
+        </li>
+
+        <li>
+          <a href="farms.html">
+            <i class="fa-solid fa-seedling" style="color: #f4f4f4;"></i>   
+            <span class="links_name">Farms</span>
+          </a>
+          <span class="tooltip">Farms</span>
+        </li>
+
+        <li>
+          <a href="setthreshold.html">
+            <i class="bx bx-cog"></i>
+            <span class="links_name">Threshold</span>
+          </a>
+          <span class="tooltip">Threshold</span>
+        </li>
+
+        <li class="profile">
+          <div class="profile-details">
+            <img src="images/profile.png" alt="profileImg" />
+            <div class="name_job">
+              <div class="name">Aditya </div>
+              <!-- <div class="job">Web Devloper</div> -->
+            </div>
+          </div>
+
+          <i class="bx bx-log-out" id="log_out"></i>
+        </li>
+
+      </ul>
+    </div>
+
+
+    <section class="home-section">
+        <h1>Crop Sensor Thresholds</h1>
+    <div class="crop-container">
+        <!-- Crop 1 - Bajra -->
+        <div class="crop">
+            <img src="Bajra.jpg" alt="Bajra">
+            <h3>Bajra</h3>
+            <!-- ... Existing input elements for Bajra ... -->
+            <div>
+                <strong>Moisture Value:</strong> <span id="moisture_value_Bajra">-</span>
+            </div>
+            <div>
+                <strong>Temperature Value:</strong> <span id="temperature_value_Bajra">-</span>
+            </div>
+            <div>
+                <strong>Humidity Value:</strong> <span id="humidity_value_Bajra">-</span>
+            </div>
+        </div>
+
+        <!-- Crop 2 - Barley -->
+        <div class="crop">
+            <img src="Barley.jpg" alt="Barley">
+            <h3>Barley</h3>
+            <!-- ... Existing input elements for Barley ... -->
+            <div>
+                <strong>Moisture Value:</strong> <span id="moisture_value_Barley">-</span>
+            </div>
+            <div>
+                <strong>Temperature Value:</strong> <span id="temperature_value_Barley">-</span>
+            </div>
+            <div>
+                <strong>Humidity Value:</strong> <span id="humidity_value_Barley">-</span>
+            </div>
+        </div>
+
+        <!-- Crop 3 - Gram -->
+        <div class="crop">
+            <img src="Gram.jpg" alt="Gram">
+            <h3>Gram</h3>
+            <!-- ... Existing input elements for Gram ... -->
+            <div>
+                <strong>Moisture Value:</strong> <span id="moisture_value_Gram">-</span>
+            </div>
+            <div>
+                <strong>Temperature Value:</strong> <span id="temperature_value_Gram">-</span>
+            </div>
+            <div>
+                <strong>Humidity Value:</strong> <span id="humidity_value_Gram">-</span>
+            </div>
+        </div>
+
+        <!-- Crop 4 - Jowar -->
+        <div class="crop">
+            <img src="Jowar.jpg" alt="Jowar">
+            <h3>Jowar</h3>
+            <div>
+                <strong>Moisture Value:</strong> <span id="moisture_value_Jowar">-</span>
+            </div>
+            <div>
+                <strong>Temperature Value:</strong> <span id="temperature_value_Jowar">-</span>
+            </div>
+            <div>
+                <strong>Humidity Value:</strong> <span id="humidity_value_Jowar">-</span>
+            </div>
+        </div>
+
+        <!-- Crop 5 - Maize -->
+        <div class="crop">
+            <img src="Maize.jpg" alt="Maize">
+            <h3>Maize</h3>
+            <!-- ... Existing elements for Maize ... -->
+            <div>
+                <strong>Moisture Value:</strong> <span id="moisture_value_Maize">-</span>
+            </div>
+            <div>
+                <strong>Temperature Value:</strong> <span id="temperature_value_Maize">-</span>
+            </div>
+            <div>
+                <strong>Humidity Value:</strong> <span id="humidity_value_Maize">-</span>
+            </div>
+        </div>
+
+        <!-- Crop 6 - Paddy -->
+        <div class="crop">
+            <img src="Paddy.jpg" alt="Paddy">
+            <h3>Paddy</h3>
+            <!-- ... Existing elements for Paddy ... -->
+            <div>
+                <strong>Moisture Value:</strong> <span id="moisture_value_Paddy">-</span>
+            </div>
+            <div>
+                <strong>Temperature Value:</strong> <span id="temperature_value_Paddy">-</span>
+            </div>
+            <div>
+                <strong>Humidity Value:</strong> <span id="humidity_value_Paddy">-</span>
+            </div>
+        </div>
+
+        <!-- Crop 7 - Peas -->
+        <div class="crop">
+            <img src="Peas.jpg" alt="Peas">
+            <h3>Peas</h3>
+            <!-- ... Existing elements for Peas ... -->
+            <div>
+                <strong>Moisture Value:</strong> <span id="moisture_value_Peas">-</span>
+            </div>
+            <div>
+                <strong>Temperature Value:</strong> <span id="temperature_value_Peas">-</span>
+            </div>
+            <div>
+                <strong>Humidity Value:</strong> <span id="humidity_value_Peas">-</span>
+            </div>
+        </div>
+
+        <!-- Crop 8 - Rice -->
+        <div class="crop">
+            <img src="Rice.jpg" alt="Rice">
+            <h3>Rice</h3>
+            <!-- ... Existing elements for Rice ... -->
+            <div>
+                <strong>Moisture Value:</strong> <span id="moisture_value_Rice">-</span>
+            </div>
+            <div>
+                <strong>Temperature Value:</strong> <span id="temperature_value_Rice">-</span>
+            </div>
+            <div>
+                <strong>Humidity Value:</strong> <span id="humidity_value_Rice">-</span>
+            </div>
+        </div>
+
+        <!-- Crop 9 - Wheat -->
+        <div class="crop">
+            <img src="Wheat.jpg" alt="Wheat">
+            <h3>Wheat</h3>
+            <!-- ... Existing elements for Wheat ... -->
+            <div>
+                <strong>Moisture Value:</strong> <span id="moisture_value_Wheat">-</span>
+            </div>
+            <div>
+                <strong>Temperature Value:</strong> <span id="temperature_value_Wheat">-</span>
+            </div>
+            <div>
+                <strong>Humidity Value:</strong> <span id="humidity_value_Wheat">-</span>
+            </div>
+        </div>
+    </div>
+
+        
+
+
+
+
+
+        
+
+
+
+        
+
+
+
+
+
+
+
+      
+    </section>
+
+
+
+
+    
+    <script src="https://kit.fontawesome.com/d4b5e96e6e.js" crossorigin="anonymous"></script>
+    <script src="dashboard.js"></script>
+  </body>
+</html>

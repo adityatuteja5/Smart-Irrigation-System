@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Analytics</title>
+    <link rel="stylesheet" href="analytics.css" />
+    <!-- Boxicons CDN Link -->
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+    
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+
+        /* Add custom CSS for styling if needed */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+        }
+        .chart-container {
+            border: 1px solid #ccc;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+        }
+        .chart-container h2 {
+            margin: 0; /* Remove margin for the heading */
+            padding: 0; /* Remove padding for the heading */
+        }
+
+
+
+    </style>
+
+
+
+
+
+  </head>
+
+  <body>
+
+    <div class="sidebar">
+      <div class="logo-details">
+        <!-- <img src="images/logo.png" alt="logo" id="logo"> -->
+        <div class="logo_name">Dashboard</div>
+        <i class="bx bx-menu" id="btn"></i>
+      </div>
+
+      <ul class="nav-list">
+
+
+        <li>
+          <a href="dashboard.html">
+            <i class="bx bx-grid-alt"></i>
+            <span class="links_name">Dashboard</span>
+          </a>
+          <span class="tooltip">Dashboard</span>
+        </li>
+
+        <li>
+          <a href="analytics.html">
+            <i class="bx bx-pie-chart-alt-2"></i>
+            <span class="links_name">Analytics</span>
+          </a>
+          <span class="tooltip">Analytics</span>
+        </li>
+
+        <li>
+          <a href="logs.html">
+            <i class="fa-solid fa-database" style="color: #ffffff;"></i>
+            <span class="links_name">Logs</span>
+          </a>
+          <span class="tooltip">Logs</span>
+        </li>
+
+        <li>
+          <a href="farms.html">
+            <i class="fa-solid fa-seedling" style="color: #f4f4f4;"></i>   
+            <span class="links_name">Farms</span>
+          </a>
+          <span class="tooltip">Farms</span>
+        </li>
+
+        <li>
+          <a href="setthreshold.html">
+            <i class="bx bx-cog"></i>
+            <span class="links_name">Threshold</span>
+          </a>
+          <span class="tooltip">Threshold</span>
+        </li>
+
+        <li class="profile">
+          <div class="profile-details">
+            <img src="images/profile.png" alt="profileImg" />
+            <div class="name_job">
+              <div class="name">Aditya </div>
+              <!-- <div class="job">Web Devloper</div> -->
+            </div>
+          </div>
+
+          <i class="bx bx-log-out" id="log_out"></i>
+        </li>
+
+      </ul>
+    </div>
+
+
+    <section class="home-section">
+        
+
+      <!-- <form action="#" method="post">
+        <label for="farm">Select Farm:</label>
+        <select name="farm" id="farm">
+            <option value="farm1">Farm 1</option>
+            <option value="farm2">Farm 2</option>
+            <option value="farm3">Farm 3</option>
+            <option value="farm4">Farm 4</option>
+        </select>
+
+        <label for="crop">Select Crop:</label>
+        <select name="crop" id="crop">
+            <option value="crop1">Crop 1</option>
+            <option value="crop2">Crop 2</option>
+            <option value="crop3">Crop 3</option>
+            <option value="crop4">Crop 4</option>
+        </select>
+
+        <label for="start-date-time">Start Date and Time:</label>
+        <input type="datetime-local" id="start-date-time" name="start-date-time" required>
+
+        <label for="end-date-time">End Date and Time:</label>
+        <input type="datetime-local" id="end-date-time" name="end-date-time" required>
+
+        <input type="submit" value="Submit">
+      </form> -->
+
+
+
+
+
+        
+
+
+
+        
+
+        <div class="grid">
+            <!-- Line Graph (Moisture Over Time) -->
+            <div class="chart-container">
+                <h2>Line Graph</h2>
+                <div id="lineChart" style="height: 400px;"></div>
+            </div>
+    
+            <!-- Bar Chart (Humidity on Different Dates) -->
+            <div class="chart-container">
+                <h2>Bar Chart</h2>
+                <div id="barChart" style="height: 400px;"></div>
+            </div>
+    
+            <!-- Scatter Plot (Temperature vs. Humidity) -->
+            <div class="chart-container">
+                <h2>Scatter Plot</h2>
+                <div id="scatterPlot" style="height: 400px;"></div>
+            </div>
+    
+            <!-- Box Plot (Sensor Readings Box Plot) -->
+            <div class="chart-container">
+                <h2>Box Plot</h2>
+                <div id="boxPlot" style="height: 400px;"></div>
+            </div>
+    
+            <!-- Sensor Anomalies (Line Chart) -->
+            <div class="chart-container">
+                <h2>Sensor Anomalies</h2>
+                <div id="anomaliesChart" style="height: 400px;"></div>
+            </div>
+    
+            <!-- Irrigation Efficiency (Bar Chart) -->
+            <div class="chart-container">
+                <h2>Irrigation Efficiency</h2>
+                <div id="efficiencyChart" style="height: 400px;"></div>
+            </div>
+        </div>
+
+
+
+
+
+
+      
+    </section>
+
+    <script>
+        // Sample data (replace with your dataset)
+        const data = {
+            labels: ["15/10/23", "10/10/23", "05/10/23", "30/09/23", "25/09/23", "20/09/23"],
+            moisture: [30, 40, 60, 50, 70, 80],
+            temperature: [25, 35, 45, 55, 65, 75],
+            humidity: [45, 15, 25, 35, 45, 55],
+            anomalies: [0, 1, 0, 0, 1, 0],  // Example: 1 for anomalies, 0 for normal
+            waterUsage: [500, 600, 700, 550, 750, 800],  // Example: water usage in liters
+            soilMoisture: [20, 30, 40, 35, 45, 50],  // Example: soil moisture level
+        };
+
+        // Line Graph (Moisture Over Time)
+        const lineChart = document.getElementById('lineChart');
+        const lineChartTrace = {
+            x: data.labels,
+            y: data.moisture,
+            mode: 'lines',
+            name: 'Moisture (%)',
+        };
+        Plotly.newPlot(lineChart, [lineChartTrace]);
+
+        // Bar Chart (Humidity on Different Dates)
+        const barChart = document.getElementById('barChart');
+        const barChartTrace = {
+            x: data.labels,
+            y: data.humidity,
+            type: 'bar',
+            marker: { color: 'green' },
+            name: 'Humidity(%)',
+        };
+        Plotly.newPlot(barChart, [barChartTrace]);
+
+        // Scatter Plot (Temperature vs. Humidity)
+        const scatterPlot = document.getElementById('scatterPlot');
+        const scatterPlotData = [{
+            x: data.temperature,
+            y: data.humidity,
+            mode: 'markers',
+            type: 'scatter',
+            marker: {
+                color: data.temperature, // Use temperature values for color scale
+                colorscale: 'Viridis', // Adjust the color scale as needed
+                colorbar: {
+                    title: 'Temperature (°C)' // Color scale title
+                },
+            },
+            name: 'Temperature vs. Humidity',
+        }];
+        const scatterPlotLayout = {
+            xaxis: { title: 'Temperature (°C)' }, // X-axis label
+            yaxis: { title: 'Humidity (%)' }, // Y-axis label
+        };
+        Plotly.newPlot(scatterPlot, scatterPlotData, scatterPlotLayout);
+
+        // Box Plot (Sensor Readings Box Plot)
+        const boxPlot = document.getElementById('boxPlot');
+        const boxPlotData = [
+            {
+                y: data.moisture,
+                type: 'box',
+                name: 'Moisture (%)',
+            },
+            {
+                y: data.humidity,
+                type: 'box',
+                name: 'Humidity(%)',
+            },
+            {
+                y: data.temperature,
+                type: 'box',
+                name: 'Temperature (°C)',
+            }
+        ];
+        Plotly.newPlot(boxPlot, boxPlotData);
+
+        // Sensor Anomalies (Line Chart)
+        const anomaliesChart = document.getElementById('anomaliesChart');
+        const anomaliesChartTrace = {
+            x: data.labels,
+            y: data.anomalies,
+            mode: 'lines+markers',
+            name: 'Anomalies',
+        };
+        Plotly.newPlot(anomaliesChart, [anomaliesChartTrace]);
+
+        // Irrigation Efficiency (Bar Chart)
+        const efficiencyChart = document.getElementById('efficiencyChart');
+        const efficiencyChartTrace = {
+            x: data.labels,
+            y: data.waterUsage,
+            type: 'bar',
+            marker: { color: 'blue' },
+            name: 'Water Usage (liters)',
+        };
+        Plotly.newPlot(efficiencyChart, [efficiencyChartTrace]);
+    </script>
+
+
+
+    
+    <script src="https://kit.fontawesome.com/d4b5e96e6e.js" crossorigin="anonymous"></script>
+    <script src="dashboard.js"></script>
+  </body>
+</html>

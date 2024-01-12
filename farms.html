@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Farms</title>
+    <link rel="stylesheet" href="analytics.css" />
+    <!-- Boxicons CDN Link -->
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+    
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+
+        /* Add custom CSS for styling if needed */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+        }
+        .chart-container {
+            border: 1px solid #ccc;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+        }
+        .chart-container h2 {
+            margin: 0; /* Remove margin for the heading */
+            padding: 0; /* Remove padding for the heading */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .farm-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+        }
+        .farm {
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .farm img {
+            max-width: 100%;
+            height: 100px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .farm h3 {
+            margin: 0;
+        }
+        .farm:hover {
+            transform: scale(1.05);
+        }
+
+
+
+    </style>
+
+
+
+
+
+  </head>
+
+  <body>
+
+    <div class="sidebar">
+      <div class="logo-details">
+        <!-- <img src="images/logo.png" alt="logo" id="logo"> -->
+        <div class="logo_name">Dashboard</div>
+        <i class="bx bx-menu" id="btn"></i>
+      </div>
+
+      <ul class="nav-list">
+
+
+        <li>
+          <a href="dashboard.html">
+            <i class="bx bx-grid-alt"></i>
+            <span class="links_name">Dashboard</span>
+          </a>
+          <span class="tooltip">Dashboard</span>
+        </li>
+
+        <li>
+          <a href="analytics.html">
+            <i class="bx bx-pie-chart-alt-2"></i>
+            <span class="links_name">Analytics</span>
+          </a>
+          <span class="tooltip">Analytics</span>
+        </li>
+
+        <li>
+          <a href="logs.html">
+            <i class="fa-solid fa-database" style="color: #ffffff;"></i>
+            <span class="links_name">Logs</span>
+          </a>
+          <span class="tooltip">Logs</span>
+        </li>
+
+        <li>
+          <a href="farms.html">
+            <i class="fa-solid fa-seedling" style="color: #f4f4f4;"></i>   
+            <span class="links_name">Farms</span>
+          </a>
+          <span class="tooltip">Farms</span>
+        </li>
+
+        <li>
+          <a href="setthreshold.html">
+            <i class="bx bx-cog"></i>
+            <span class="links_name">Threshold</span>
+          </a>
+          <span class="tooltip">Threshold</span>
+        </li>
+
+        <li class="profile">
+          <div class="profile-details">
+            <img src="images/profile.png" alt="profileImg" />
+            <div class="name_job">
+              <div class="name">Aditya </div>
+              <!-- <div class="job">Web Devloper</div> -->
+            </div>
+          </div>
+
+          <i class="bx bx-log-out" id="log_out"></i>
+        </li>
+
+      </ul>
+    </div>
+
+
+    <section class="home-section">
+        <h1>Farms Dashboard</h1>
+        <div class="farm-container">
+            <!-- Farm 1 -->
+            <div class="farm" onclick="window.open('farm1.html')">
+                <img src="farm1.jpg" alt="Farm 1">
+                <h3>Farm 1</h3>
+            </div>
+    
+            <!-- Farm 2 -->
+            <div class="farm" onclick="window.open('farm2.html')">
+                <img src="farm2.jpg" alt="Farm 2">
+                <h3>Farm 2</h3>
+            </div>
+    
+            <!-- Farm 3 -->
+            <div class="farm" onclick="window.open('farm3.html')">
+                <img src="farm3.jpg" alt="Farm 3">
+                <h3>Farm 3</h3>
+            </div>
+        </div>
+
+
+
+
+
+        
+
+
+
+        
+
+
+
+
+
+
+
+      
+    </section>
+
+
+
+
+    
+    <script src="https://kit.fontawesome.com/d4b5e96e6e.js" crossorigin="anonymous"></script>
+    <script src="dashboard.js"></script>
+  </body>
+</html>
